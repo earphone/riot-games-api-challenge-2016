@@ -1,0 +1,17 @@
+Take top 4 champions from X Random NA PLayers
+
+Data Needed:
+championPoints
+highestGrade
+championLevel
+championId
+
+Questions:
+Average Champion Points
+Average Grade
+Average Champion Level
+Champion with most Levels
+Champion with least levels
+Champion with most points
+Champion with least points
+Percentage of level 5,4,3,2,1 champions
