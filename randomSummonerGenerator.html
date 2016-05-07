@@ -50,63 +50,60 @@
 				
 			}
 					
-            function httpGet(theUrl, typeCode) {
+            function httpGet(theUrl) {
                 // typeCode = 1 is for getting summoner data from Id Number
-                // typeCode = 2 is for getting sscore from Id Number
-                var xmlResponse;
-                var xmlHttp;
-                if (window.XMLHttpRequest) {
-                    // code for modern browsers
-                    xmlHttp = new XMLHttpRequest();
-                } else {
-                    // code for IE6, IE5
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                xmlHttp.onreadystatechange = function() {
-                    // Only accept html response code 200
-                    if (xmlHttp.status == 200) {
-                        xmlResponse = xmlHttp.responseText;
-                        
-                        // Do the following portion if I am grabbing data for summoners
-                        if(typeCode == 1) {
-                            currentSummonerJSON = JSON.parse(xmlResponse);
-                
-                            var id = currentSummonerJSON[currentSummonerId].id;
-                            var currentSummonerName = currentSummonerJSON[currentSummonerId].name;
-                            currentLevel = currentSummonerJSON[currentSummonerId].summonerLevel;
-                            
-                            // Only use data from Summoners who have reached level 30
-                            if(currentLevel = 30) {
-                                documentSearchedSummoner.innerHTML = id + "--" + currentSummonerName + "--" + currentLevel;
-                                documentCount.innerHTML = "Count = " + ++count/2;
-                            }
-                        }
-                        if(typeCode == 2) {
-                            var para = document.createElement("p");
-                            var node = document.createTextNode("Response code 2 " + xmlResponse + "\n" + theUrl);
-                            para.appendChild(node);
-                            documentSearchedSummoner.appendChild(para);
-                        }
-                    }
-                    else {
-                        // Report error
-                        documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error";
-                    }
-                }
-                xmlHttp.open("GET", theUrl, true);
+                // typeCode = 2 is for getting score from Id Number
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", theUrl, false);
                 xmlHttp.send();
-                // Returns null becuase changing variables withing funtion itself
+                
+                // Code for Async
+                if (xmlHttp.status = 200) {
+                        var xmlResponse = xmlHttp.responseText;
+                        
+                        // Do the following portion if grabbing data from summoners
+                        switch(typeCode) {
+                            case 1:
+                                var currentSummonerJSON = JSON.parse(xmlResponse);
+
+                                var id = currentSummonerJSON[currentSummonerId].id;
+                                var currentSummonerName = currentSummonerJSON[currentSummonerId].name;
+                                currentLevel = currentSummonerJSON[currentSummonerId].summonerLevel;
+
+                                // Only use data from Summoners who have reached level 30
+                                if(currentLevel = "30") {
+                                    documentSearchedSummoner.innerHTML = "<pre>" + "Id Number: " + id + "\nSummoner Name: " + currentSummonerName + "\nCurrent Level: " + currentLevel + "</pre>";
+                                    documentCount.innerHTML = "# of Summoners Found = " + ++count;
+                                }
+                                break;
+                            case 2:
+                                var para = document.createElement("p");
+                                var node = document.createTextNode("Response code 2 " + "\n\n" + theUrl);
+                                para.appendChild(node);
+                                documentSearchedSummoner.appendChild(para);
+                                break;
+                            default:
+                                var para = document.createElement("p");
+                                var node = document.createTextNode("Unknown typeCode: " + typeCode + " for " + theUrl);
+                                para.appendChild(node);
+                                documentSearchedSummoner.appendChild(para);
+                        }
+                    } else {
+                        // Report error
+                        documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error for " + theUrl;
+                    }
+                
+                // Returns null because changing variables within funtion itself
                 return null;
             }
             
-            // Uses httpGet to get the address of summonerId
+            // Uses httpGet to get the addresses and call the httpGet function with the appropriate typeCode
             function getSummoner(summonerId) {
-                var searchSummoner = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + currentSummonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
-                var searchScore = "https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e"//"https://na.api.pvp.net/championmastery/location/NA1/player/" + currentSummonerId + "/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e"
+                var searchSummoner = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + summonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
+                var searchScore = "https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";//"https://na.api.pvp.net/championmastery/location/NA1/player/" + summonerId + "/topchampions?count=2&api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
                 
-                //httpGet(searchSummoner, 1);
-                httpGet(searchScore, 2);
-                sleep(1000);
+                httpGet("https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + summonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e", 1);
+                httpGet("https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e", 2);
                 
                 return null;
             }
@@ -187,4 +184,51 @@ para.appendChild(node);
 var element = document.getElementById("div1");
 element.appendChild(para);
 </script>
+--------------------------------------------------------------------------------------
+            function httpGet(theUrl, typeCode) {
+                // typeCode = 1 is for getting summoner data from Id Number
+                // typeCode = 2 is for getting score from Id Number
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", theUrl, false);
+                xmlHttp.send();
+                
+                // Code for Async
+                if (xmlHttp.status = 200) {
+                        var xmlResponse = xmlHttp.responseText;
+                        
+                        // Do the following portion if grabbing data from summoners
+                        switch(typeCode) {
+                            case 1:
+                                var currentSummonerJSON = JSON.parse(xmlResponse);
+
+                                var id = currentSummonerJSON[currentSummonerId].id;
+                                var currentSummonerName = currentSummonerJSON[currentSummonerId].name;
+                                currentLevel = currentSummonerJSON[currentSummonerId].summonerLevel;
+
+                                // Only use data from Summoners who have reached level 30
+                                if(currentLevel = "30") {
+                                    documentSearchedSummoner.innerHTML = "<pre>" + "Id Number: " + id + "\nSummoner Name: " + currentSummonerName + "\nCurrent Level: " + currentLevel + "</pre>";
+                                    documentCount.innerHTML = "# of Summoners Found = " + ++count;
+                                }
+                                break;
+                            case 2:
+                                var para = document.createElement("p");
+                                var node = document.createTextNode("Response code 2 " + "\n\n" + theUrl);
+                                para.appendChild(node);
+                                documentSearchedSummoner.appendChild(para);
+                                break;
+                            default:
+                                var para = document.createElement("p");
+                                var node = document.createTextNode("Unknown typeCode: " + typeCode + " for " + theUrl);
+                                para.appendChild(node);
+                                documentSearchedSummoner.appendChild(para);
+                        }
+                    } else {
+                        // Report error
+                        documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error for " + theUrl;
+                    }
+                
+                // Returns null because changing variables within funtion itself
+                return null;
+            }
 --!>
