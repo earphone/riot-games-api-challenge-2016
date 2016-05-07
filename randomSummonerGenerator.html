@@ -9,7 +9,7 @@
             <button id="rngTest" type="button">Generate A Summoner</button>
             <p id="summonerId">Id</p>
             <p id="searchedSummoner">Searched</p>
-            <p id="searchedScore"></p>
+            <p id="searchedScore">Score</p>
             <p id="countedSummoners">Count</p>
         </div>
 		
@@ -33,18 +33,18 @@
 			
 			// Functions
 			function summonSummoner() {
+                currentSummonerId = Math.round(Math.random() * 50000000);
+
+                // Only grab a random 8-digit Id number below 50000000 because they have the highest chance of coming up with a summoner
+                while(currentSummonerId > 50000000 || currentSummonerId < 9999999) {
                     currentSummonerId = Math.round(Math.random() * 50000000);
+                }
 
-                    // Only grab a random 8-digit Id number below 50000000 because they have the highest chance of coming up with a summoner
-                    while(currentSummonerId > 50000000 || currentSummonerId < 9999999) {
-                        currentSummonerId = Math.round(Math.random() * 50000000);
-                    }
+                currentSummonerId = currentSummonerId.toString();
 
-                    currentSummonerId = currentSummonerId.toString();
+                documentSummonerId.innerHTML = currentSummonerId;
 
-                    documentSummonerId.innerHTML = currentSummonerId;
-
-                    getSummoner(currentSummonerId);
+                getSummoner(currentSummonerId);
 			}
 			
 			function rngSummoner() {
@@ -58,7 +58,7 @@
                 xmlHttp.send();
                 
                 // Code for Async
-                if (xmlHttp.status = 200) {
+                if (xmlHttp.status == 200) {
                     var xmlResponse = xmlHttp.responseText;
                     var currentSummonerJSON = JSON.parse(xmlResponse);
 
@@ -72,15 +72,12 @@
                         documentCount.innerHTML = "# of Summoners Found = " + ++count;
                     }
                     else {
-                        documentSearchedSummoner.innerHTML = currentSummonerName + " is under Level 30";
+                        documentSearchedSummoner.innerHTML = "<pre>" + currentSummonerName + " is under Level 30" + "</pre>";
                     }
                 } else {
                     // Report error
                     documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error for " + theUrl;
                 }
-                
-                // Returns null because changing variables within funtion itself
-                return null;
             }
             
             function httpGetScore(theUrl) {
@@ -89,27 +86,23 @@
                 xmlHttp.send();
                 
                 // Code for Async
-                if (xmlHttp.status = 200) {
+                if (xmlHttp.status == 200) {
                     var xmlResponse = xmlHttp.responseText;
-                    documentScore.innerHTML = xmlResponse;
+                    documentScore.innerHTML = theUrl;//xmlResponse;
                 } else {
                     // Report error
                     documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error for " + theUrl;
                 }
-                
-                // Returns null because changing variables within funtion itself
-                return null;
             }
             
             // Uses httpGet to get the addresses and call the httpGet function with the appropriate typeCode
             function getSummoner(summonerId) {
                 var searchSummoner = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + summonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
-                var searchScore = "https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";//"https://na.api.pvp.net/championmastery/location/NA1/player/" + summonerId + "/topchampions?count=2&api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
+                var searchScore = "https://na.api.pvp.net/championmastery/location/NA1/player/" + summonerId + "/topchampions?count=2&api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
                 
-                httpGetId("https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + summonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e");
-                httpGetScore("https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e");
-                
-                return null;
+                // httpGet is setup to be synchronous
+                httpGetId(String(searchSummoner));
+                httpGetScore(String(searchScore));
             }
             
             // Sleep Function
