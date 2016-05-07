@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        
+        <div id="divNW">
+            <button id="buttonNW" type="button" onclick="loadDoc()">Choice 1</button>
+            <p id="demo">Let AJAX change this text.</p>
+        </div>
+
+        <div id="divNE">
+            <button id="buttonNE" type="button" onclick="loadDoc()">Choice 2</button>
+        </div>
+
+        <div id="divSW">
+            <button id="buttonSW" type="button" onclick="loadDoc()">Choice 3</button>
+        </div>
+
+        <div id="divSE">
+            <button id="buttonSE" type="button" onclick="loadDoc()">Choice 4</button>
+        </div>
+        
+        <div id="divScore">
+            <h2 id="hScore">
+                Score
+            </h2>
+            <h1>
+                0
+            </h1>
+        </div>
+                
+        <div id="divBack">
+            <button id="buttonBack" type="button" onclick="location.href='index.html'">Back to Main Menu</button>
+        </div>
+        
+        <div id="divCredit">
+            <div class="footerDisclaimer">
+                <p>
+                    2016 HIGASHI
+                    <span style="color:#B3B3B3">B&B Entertainment</span>
+                </p>
+            </div>
+        </div>
+        
+        <div id="divMid">
+            <h2 id="hQuestion">
+                Ready?
+            </h2>
+        </div>
+        
+        <div id="divAnswer">
+            <h3 id="hAnswer">
+                PREVIOUS ANSWER
+            </h3>
+        </div>
+        
+        <script>
+            function loadDoc() {
+              var xhttp;
+                var result;
+              if (window.XMLHttpRequest) {
+                // code for modern browsers
+                xhttp = new XMLHttpRequest();
+                } else {
+                // code for IE6, IE5
+                xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+              }
+              xhttp.onreadystatechange = function() {
+                if (xhttp.status == 200) {
+                    document.getElementById("divAnswer").innerHTML = JSON.parse(xhttp.responseText)[22125748].id;
+                }
+              }
+              xhttp.open("GET", "https://na.api.pvp.net/api/lol/na/v1.4/summoner/22125748?api_key=3460896e-d095-46b3-bc0f-8192d912f95e", true);
+              xhttp.send();
+
+            }
+        </script>
+
+    </body>
+</html>

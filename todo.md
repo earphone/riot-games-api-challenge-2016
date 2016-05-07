@@ -1,5 +1,5 @@
 #ToDo
-- [ ] Come up with amazing idea!
+- [ X ] Come up with amazing idea!
 - [ ] Initialize git repo
 - [ ] Get teammate to agree to it (he's the better coder atm...)
 - [ ] Add api key

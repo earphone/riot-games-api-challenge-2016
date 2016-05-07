@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Random Summoner Generator</title>
+	</head>
+	<body>
+		<h1>HELLO RITO!!</h1>
+        <div id="maindiv">
+            <button id="rngTest" type="button">Generate A Summoner</button>
+            <p id="summonerId">Id</p>
+            <p id="searchedSummoner">Searched</p>
+            <p id="countedSummoners">Count</p>
+        </div>
+		
+		
+		<script>
+		// The scripts that make the magic happen
+			// Variables for Script
+            var count = 0;
+            var currentLevel = 0;
+			var currentSummonerId;
+            var currentSummonerIdString = "00000000";
+            var summonerJSON;
+			var rngButton = document.getElementById("rngTest");
+			var documentSummonerId = document.getElementById("summonerId");
+            var documentSearchedSummoner = document.getElementById("searchedSummoner");
+            var documentCount = document.getElementById("countedSummoners");
+			
+			// Button Clicks
+			rngButton.addEventListener('click', summonSummoner);
+			
+			// Functions
+			function summonSummoner() {
+                    currentSummonerId = Math.round(Math.random() * 50000000);
+
+                    // Only grab a random 8-digit Id number below 50000000 because they have the highest chance of coming up with a summoner
+                    while(currentSummonerId > 50000000 || currentSummonerId < 9999999) {
+                        currentSummonerId = Math.round(Math.random() * 50000000);
+                    }
+
+                    currentSummonerId = currentSummonerId.toString();
+
+                    documentSummonerId.innerHTML = currentSummonerId;
+
+                    getSummoner(currentSummonerId);
+			}
+			
+			function rngSummoner() {
+				
+				
+			}
+					
+            function httpGet(theUrl, typeCode) {
+                // typeCode = 1 is for getting summoner data from Id Number
+                // typeCode = 2 is for getting sscore from Id Number
+                var xmlResponse;
+                var xmlHttp;
+                if (window.XMLHttpRequest) {
+                    // code for modern browsers
+                    xmlHttp = new XMLHttpRequest();
+                } else {
+                    // code for IE6, IE5
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttp.onreadystatechange = function() {
+                    // Only accept html response code 200
+                    if (xmlHttp.status == 200) {
+                        xmlResponse = xmlHttp.responseText;
+                        
+                        // Do the following portion if I am grabbing data for summoners
+                        if(typeCode == 1) {
+                            currentSummonerJSON = JSON.parse(xmlResponse);
+                
+                            var id = currentSummonerJSON[currentSummonerId].id;
+                            var currentSummonerName = currentSummonerJSON[currentSummonerId].name;
+                            currentLevel = currentSummonerJSON[currentSummonerId].summonerLevel;
+                            
+                            // Only use data from Summoners who have reached level 30
+                            if(currentLevel = 30) {
+                                documentSearchedSummoner.innerHTML = id + "--" + currentSummonerName + "--" + currentLevel;
+                                documentCount.innerHTML = "Count = " + ++count/2;
+                            }
+                        }
+                        if(typeCode == 2) {
+                            var para = document.createElement("p");
+                            var node = document.createTextNode("Response code 2 " + xmlResponse + "\n" + theUrl);
+                            para.appendChild(node);
+                            documentSearchedSummoner.appendChild(para);
+                        }
+                    }
+                    else {
+                        // Report error
+                        documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error";
+                    }
+                }
+                xmlHttp.open("GET", theUrl, true);
+                xmlHttp.send();
+                // Returns null becuase changing variables withing funtion itself
+                return null;
+            }
+            
+            // Uses httpGet to get the address of summonerId
+            function getSummoner(summonerId) {
+                var searchSummoner = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/" + currentSummonerId + "?api_key=3460896e-d095-46b3-bc0f-8192d912f95e";
+                var searchScore = "https://na.api.pvp.net/championmastery/location/NA1/player/22125748/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e"//"https://na.api.pvp.net/championmastery/location/NA1/player/" + currentSummonerId + "/score?api_key=3460896e-d095-46b3-bc0f-8192d912f95e"
+                
+                //httpGet(searchSummoner, 1);
+                httpGet(searchScore, 2);
+                sleep(1000);
+                
+                return null;
+            }
+            
+            // Sleep Function
+            function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds){
+                        break;
+                    }
+                }
+            }
+            
+		</script>
+	</body>
+</html>
+
+look in https://developer.riotgames.com/discussion/community-discussion/show/xvZbxZrV
+non-summoner names start with "IS1"
+<!--
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Let AJAX change this text.</p>
+
+<button type="button" onclick="loadDoc()">Change Content</button>
+
+<script>
+function loadDoc() {
+  var xhttp;
+  if (window.XMLHttpRequest) {
+    // code for modern browsers
+    xhttp = new XMLHttpRequest();
+    } else {
+    // code for IE6, IE5
+    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xhttp.onreadystatechange = function() {
+    if (xhttp.status == 200) {
+      document.getElementById("demo").innerHTML = xhttp.responseText;
+    }
+  }
+  xhttp.open("GET", "https://na.api.pvp.net/api/lol/na/v1.4/summoner/22125748?api_key=3460896e-d095-46b3-bc0f-8192d912f95e", true);
+  xhttp.send();
+}
+</script>
+------------------------------------------------------------------------------------
+</body>
+</html>
+
+<body>
+
+<form action="action_page.php">
+  First name:<br>
+  <input type="text" name="firstname" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "action_page.php".</p>
+
+</body>
+--------------------------------------------------------------------------------------
+<div id="div1">
+<p id="p1">This is a paragraph.</p>
+<p id="p2">This is another paragraph.</p>
+</div>
+
+<script>
+var para = document.createElement("p");
+var node = document.createTextNode("This is new.");
+para.appendChild(node);
+var element = document.getElementById("div1");
+element.appendChild(para);
+</script>
+--!>
