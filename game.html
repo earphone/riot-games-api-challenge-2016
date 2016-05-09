@@ -57,6 +57,45 @@
         </div>
         
         <script>
+            // Variables
+			var championPoints 		= 0,
+				avgGrade 			= 0,
+				avgChampionLevel 	= 0,
+				avgChampionScore 	= 0,
+				avgScore 			= 0,
+				
+				championMostLevels 	= 0,
+				championLeastLevels = 0,
+				championMostLevels 	= 0,
+				championLeastLevels = 0,
+				
+				percentLevel5 = 0,
+				percentLevel4 = 0,
+				percentLevel3 = 0,
+				percentLevel2 = 0,
+				percentLevel1 = 0;
+				
+			// Functions
+			
+			// Will create random set of numbers
+			// int base  -correct answer
+			// int floor -lowest number generated
+			// int ceil  -multiplied by the base to set largest number generated
+			// int numAns-number of answers generated
+			function random(base,floor,ceil,numAns) {
+				var arr = [base];
+				var found=false;
+				while(arr.length < numAns) {
+					var number = Math.floor(Math.random()*(base*ceil) + floor);
+					
+					for(var i=1;i<arr.length;i++){
+						if(arr[i]==number){found=true;break}
+					}
+					if(!found)arr[arr.length]=number;
+				}
+				return arr;
+			}
+			
             function loadDoc() {
               var xhttp;
                 var result;
