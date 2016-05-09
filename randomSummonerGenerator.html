@@ -60,6 +60,7 @@
                 // Code for Async
                 if (xmlHttp.status == 200) {
                     var xmlResponse = xmlHttp.responseText;
+                    alert("Id");
                     var currentSummonerJSON = JSON.parse(xmlResponse);
 
                     var id = currentSummonerJSON[currentSummonerId].id;
@@ -80,18 +81,18 @@
                 }
             }
             
-            function httpGetScore(theUrl) {
-                var xmlHttp = new XMLHttpRequest();
-                xmlHttp.open("GET", theUrl, false);
-                xmlHttp.send();
-                
+            function httpGetScore(thisUrl) {
+               var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", thisUrl, false);
+                alert("Grabbing data from " + thisUrl);
+                xhttp.send();
                 // Code for Async
-                if (xmlHttp.status == 200) {
+                if (xhttp.status == 200) {
                     var xmlResponse = xmlHttp.responseText;
-                    documentScore.innerHTML = theUrl;//xmlResponse;
+                    documentScore.innerHTML = thisUrl;//xmlResponse;
                 } else {
                     // Report error
-                    documentSearchedSummoner.innerHTML = xmlHttp.status + "\t Error for " + theUrl;
+                    documentSearchedSummoner.innerHTML = xhttp.status + "\t Error for " + thisUrl;
                 }
             }
             
