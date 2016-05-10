@@ -76,6 +76,14 @@ p {
     border-bottom: 1px solid #FFFFFF;
 }
 
+#hAnswerTitle {
+    line-height: 30px;
+    padding: 0;
+    color:white;
+    display: inline-block;
+    border-bottom: 1px solid #FFFFFF;
+}
+
 #divAnswer {
     top:50%;
     left: 25%;
@@ -98,6 +106,12 @@ p {
 }
 
 #hScore {
+    color: black;
+    border-bottom: 1px solid #000000;
+    display: inline-block;
+}
+
+#hScoreNumber {
     color: black;
     border-bottom: 1px solid #000000;
     display: inline-block;

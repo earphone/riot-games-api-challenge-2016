@@ -26,6 +26,7 @@
             <h2 id="hScore">
                 Score
             </h2>
+            <br>
             <h1 id="hScoreNumber">
                 0
             </h1>
@@ -47,12 +48,19 @@
         <div id="divMid">
             <h2 id="hQuestion">
                 Ready?
+                <br>
+                <br>
+                Please note that all of the following questions are in the context of Summoner's Top 3 Champions 	&#x263a
             </h2>
         </div>
         
         <div id="divAnswer">
-            <h3 id="hAnswer">
+            <h3 id="hAnswerTitle">
                 PREVIOUS ANSWER
+            </h3>
+            <br>
+            <h3 id="hAnswer">
+            
             </h3>
         </div>
         
@@ -66,10 +74,10 @@
 				avgTop3Score		  = 10,
                 avgTop3ScorePerScore  = "15%",
 				
-				championMostLevels 	= "Thresh", // 412,  // Thresh
-				championLeastLevels = "Talon",  // 91,   // Talon
-				championMostPoints 	= "Caitlyn",// 51,   // Caitlyn
-				championLeastPoints = "Sivir",  // 15,   // Sivir
+				championMostLevels 	= "Thresh<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Thresh.png alt=Thresh>", // 412,  // Thresh
+				championLeastLevels = "Talon<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Talon.png alt=Talon>",  // 91,   // Talon
+				championMostPoints 	= "Caitlyn<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Caitlyn.png alt=Caitlyn>",// 51,   // Caitlyn
+				championLeastPoints = "Sivir<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Sivir.png alt=Sivir>",  // 15,   // Sivir
 				
 				percentLevel5 = "39%",
 				percentLevel4 = "9%",
@@ -85,10 +93,10 @@
                 wrongScore          = [60, 70, 69, 77, 123],
                 wrongTop3Score      = [3, 15, 6, 9, 12, 16],
                 wrongTop3ScorePer   = ["100%", "75%", "50%", "25%", "10%", "5%"],
-                wrongMostLevels     = ["Zed", "Tristana", "Teemo", "Rengar", "Lux"],
-                wrongLeastLevels    = ["Heimerdinger", "Teemo", "Olaf", "Warwick", "Aatrox"],
-                wrongMostPoints     = ["Darius", "Ezreal", "Zed", "Yasuo", "Lucian", "Teemo"],
-                wrongLeastPoints    = ["Leona", "Rammus", "Vayne", "Teemo", "Wukong", "Lux"],
+                wrongMostLevels     = ["Zed<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Zed.png alt=Zed>", "Tristana<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Tristana.png alt=Tristana>", "Teemo<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Teemo.png alt=Teemo>", "Rengar<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Rengar.png alt=Rengar>", "Lux<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Lux.png alt=Lux>"],
+                wrongLeastLevels    = ["Heimerdinger<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Heimerdinger.png alt=Heimerdinger>", "Teemo<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Teemo.png alt=Teemo>", "Olaf<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Olaf.png alt=Olaf>", "Warwick<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Warwick.png alt=Warwick>", "Aatrox<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Aatrox.png alt=Aatrox>"],
+                wrongMostPoints     = ["Darius<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Darius.png alt=Darius>", "Ezreal<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Ezreal.png alt=Ezreal>", "Zed<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Zed.png alt=Zed>", "Yasuo<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Yasuo.png alt=Yasuo>", "Lucian<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Lucian.png alt=Lucian>", "Teemo<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Teemo.png alt=Teemo>"],
+                wrongLeastPoints    = ["Leona<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Leona.png alt=Leona>", "Rammus<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Rammus.png alt=Rammus>", "Vayne<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Vayne.png alt=Vayne>", "Teemo<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Teemo.png alt=Teemo>", "Wukong<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/MonkeyKing.png alt=Wukong>", "Lux<br><img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Lux.png alt=Lux>"],
                 wrongPercentLevel5  = ["29%", "49%", "33%", "43%", "23%"],
                 wrongPercentLevel4  = ["11%", "19%", "5%", "15%", "23%"],
                 wrongPercentLevel3  = ["4%", "9%", "19%", "24%", "11%"],
@@ -117,42 +125,142 @@
                              ["What is the Percentage of Level 1 Champions?", percentLevel1, wrongPercentLevel1],
                             ];
             
-            // Variables for checking buttons
-            var correctButton = 1;
-            var score = 0;
-            var started = 0;
-            
+            // Variables for playing game
+            var correctButton = 1;  // What the correct button is set to
+            var score = 0;  // Current score of the player
+            var started = 0;    // Whether or not the player started the game
+            var count = 0;  // Number of questions player has already answered
+            var questionNumber; // Position of the current question in the questions array
+            var currentQuestion = document.getElementById("hQuestion");
+            var pastAnswer = document.getElementById("hAnswer");
+            var currentScore = document.getElementById("hScoreNumber");
+            var button1 = document.getElementById("buttonNW");
+            var button2 = document.getElementById("buttonNE");
+            var button3 = document.getElementById("buttonSW");
+            var button4 = document.getElementById("buttonSE");
             
             // Will check if button pressed was correct button
             // If correct add to score and go to next
             // If incorrect go to next
             function checkAnswer(buttonPressed) {
-                //alert("Button " + buttonPressed + " pressed");
+            //alert("Button " + buttonPressed + " pressed");
+                // Initial state of the game asking if a player is ready
                 if(started==0){
                     switch(buttonPressed) {
                         case 1:
                             started = 1;
-                            document.getElementById("hAnswer").innerHTML = "No";
+                            count = 0;
+                            pastAnswer.innerHTML = "Yes";
+                            setQuestion();
                             break;
                         case 2:
                             started = 0;
-                            document.getElementById("hQuestion").innerHTML = "Are you Ready Now?";
-                            document.getElementById("hAnswer").innerHTML = "No";
+                            pastAnswer.innerHTML = "No";
+                            switch(count) {
+                                case 0:
+                                    currentQuestion.innerHTML = "Are you Ready?";
+                                    count++;
+                                    break;
+                                case 1:
+                                    currentQuestion.innerHTML = "Are you Ready this time??";
+                                    count++;
+                                    break;
+                                case 2:
+                                    currentQuestion.innerHTML = "Are you Ready yet?";
+                                    count++;
+                                    break;
+                                case 3:
+                                    currentQuestion.innerHTML = "...ready?";
+                                    count++;
+                                    break;
+                                case 4:
+                                    currentQuestion.innerHTML = "<img src=http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Teemo.png alt=Teemo>";
+                                    count++;
+                                    break;
+                                default:
+                                    currentQuestion.innerHTML = "Come on man...";
+                                    count=0;
+                                    break;
+                            }
                             break;
                         case 3:
                             started = 1;
-                            document.getElementById("hAnswer").innerHTML = "Absolutely!";
-                            document.getElementById("hScoreNumber").innerHTML = ++score;
+                            count = 0;
+                            pastAnswer.innerHTML = "Absolutely!";
+                            currentScore.innerHTML = ++score;
+                            setQuestion();
                             break;
                         case 4:
                             window.location="index.html";
                             break;
                     }
                 }
+                // If the player pressed "Yes" or "Absolutely" to ready or if a player is already playing
+                else {
+                    // Only ask 10 questions
+                    if(count < 10) {
+                        // Correct Answer
+                        if(buttonPressed == correctButton) {
+                            currentScore.innerHTML = ++score;
+                        }
+                        // Incorrect Answer Do nothing
+                        count++;
+                        pastAnswer.innerHTML = questions[questionNumber][1];
+                        questions.splice(questionNumber,1);
+                        setQuestion();
+                    }
+                    // End Game screen to ask to replay or back to main page
+                    else {
+                        if(count == 10) {
+                            currentQuestion.innerHTML = "Conrats!!<br>You finished with a score of " + score + "!!<br><br>Hit any button to play again!";
+                            button1.innerHTML = "Thank";
+                            button2.innerHTML = "You";
+                            button3.innerHTML = "For";
+                            button4.innerHTML = "Playing";
+                            count = 69;
+                        }
+                        else {
+                            location.reload();
+                        }
+                    }
+                }
             }
-			
-            // Functions
-			
+            
+            // Sets the current question and updates the respective fields on the page
+            function setQuestion() {
+                questionNumber = Math.floor(Math.random() * questions.length);
+                correctButton = Math.ceil(Math.random() * 4);
+                currentQuestion.innerHTML = questions[questionNumber][0];
+                switch(correctButton) {
+                    case 1:
+                        button1.innerHTML = questions[questionNumber][1];
+                        button2.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button3.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button4.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        break;
+                    case 2:
+                        button2.innerHTML = questions[questionNumber][1];
+                        button1.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button3.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button4.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        break;
+                    case 3:
+                        button3.innerHTML = questions[questionNumber][1];
+                        button1.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button2.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button4.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        break;
+                    case 4:
+                        button4.innerHTML = questions[questionNumber][1];
+                        button1.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button2.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        button3.innerHTML = questions[questionNumber][2][Math.floor(Math.random() * questions[questionNumber][2].length)];
+                        break;
+                }
+                // alert(questionNumber + " " + correctButton);
+                
+            }
+            
 			// Will create random set of numbers
 			// int base  -correct answer
 			// int floor -lowest number generated
