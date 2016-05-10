@@ -6,27 +6,27 @@
     <body>
         
         <div id="divNW">
-            <button id="buttonNW" type="button" onclick="loadDoc()">Choice 1</button>
+            <button id="buttonNW" type="button" onclick="checkAnswer(1)">Choice 1<br>Yes</button>
             <p id="demo">Let AJAX change this text.</p>
         </div>
 
         <div id="divNE">
-            <button id="buttonNE" type="button" onclick="loadDoc()">Choice 2</button>
+            <button id="buttonNE" type="button" onclick="checkAnswer(2)">Choice 2<br>No</button>
         </div>
 
         <div id="divSW">
-            <button id="buttonSW" type="button" onclick="loadDoc()">Choice 3</button>
+            <button id="buttonSW" type="button" onclick="checkAnswer(3)">Choice 3<br>Absolutely</button>
         </div>
 
         <div id="divSE">
-            <button id="buttonSE" type="button" onclick="loadDoc()">Choice 4</button>
+            <button id="buttonSE" type="button" onclick="checkAnswer(4)">Choice 4<br>Never!!!</button>
         </div>
         
         <div id="divScore">
             <h2 id="hScore">
                 Score
             </h2>
-            <h1>
+            <h1 id="hScoreNumber">
                 0
             </h1>
         </div>
@@ -57,27 +57,101 @@
         </div>
         
         <script>
-            // Variables
+            // Variables for correct answers
 			var avgChampionPoints 	  = 24156,
 				avgGrade 			  = "A",
 				avgChampionLevel 	  = 3,
                 avgPointsPerScore     = 6470,
 				avgScore              = 66,
 				avgTop3Score		  = 10,
-                avgTop3ScorePerScore  = 0.15,
+                avgTop3ScorePerScore  = "15%",
 				
-				championMostLevels 	= 412,  // Thresh
-				championLeastLevels = 91,   // Talon
-				championMostPoints 	= 51,   // Caitlyn
-				championLeastPoints = 15,   // Sivir
+				championMostLevels 	= "Thresh", // 412,  // Thresh
+				championLeastLevels = "Talon",  // 91,   // Talon
+				championMostPoints 	= "Caitlyn",// 51,   // Caitlyn
+				championLeastPoints = "Sivir",  // 15,   // Sivir
 				
-				percentLevel5 = 0.39,
-				percentLevel4 = 0.09,
-				percentLevel3 = 0.14,
-				percentLevel2 = 0.20,
-				percentLevel1 = 0.19;
-				
-			// Functions
+				percentLevel5 = "39%",
+				percentLevel4 = "9%",
+				percentLevel3 = "14%",
+				percentLevel2 = "20%",
+				percentLevel1 = "19%";
+            
+            // Variables for incorrect answers
+            var wrongChampionPoints = [12345, 54321, 13654, 53246, 45682, 26485, 63548, 23645],
+                wrongGrade          = ["S", "B", "C", "D", "F"],
+                wrongChampionLevel  = [1, 2, 4, 5],
+                wrongPointsPerScore = [1234, 6543, 5040, 7245, 4230, 9650],
+                wrongScore          = [60, 70, 69, 77, 123],
+                wrongTop3Score      = [3, 15, 6, 9, 12, 16],
+                wrongTop3ScorePer   = ["100%", "75%", "50%", "25%", "10%", "5%"],
+                wrongMostLevels     = ["Zed", "Tristana", "Teemo", "Rengar", "Lux"],
+                wrongLeastLevels    = ["Heimerdinger", "Teemo", "Olaf", "Warwick", "Aatrox"],
+                wrongMostPoints     = ["Darius", "Ezreal", "Zed", "Yasuo", "Lucian", "Teemo"],
+                wrongLeastPoints    = ["Leona", "Rammus", "Vayne", "Teemo", "Wukong", "Lux"],
+                wrongPercentLevel5  = ["29%", "49%", "33%", "43%", "23%"],
+                wrongPercentLevel4  = ["11%", "19%", "5%", "15%", "23%"],
+                wrongPercentLevel3  = ["4%", "9%", "19%", "24%", "11%"],
+                wrongPercentLevel2  = ["5%", "15%", "25%", "30%", "10%"],
+                wrongPercentLevel1  = ["9%", "14%", "24%", "29", "39%"];
+            
+            //  Variables for questions (16 total)
+            //  question1   |   question2   |   etcQuestions
+            //  answer1     |   answer2     |   etcAnswers
+            //  wrong1      |   wrong2      |   etcWrong
+            var questions = [["What is the average number of Champion Mastery points per Summoner?", avgChampionPoints, wrongChampionPoints], 
+                             ["What is the average top grade per Summoner?", avgGrade, wrongGrade], 
+                             ["What is the average Champion level per Summoner?", avgChampionLevel, wrongChampionLevel], 
+                             ["What is the average number of Points per Champion level?", avgPointsPerScore, wrongPointsPerScore], 
+                             ["What is the average score per Summoner overall?", avgScore, wrongScore],
+                             ["What is the average score for a Summoner's Top 3 Champions?", avgTop3Score, wrongTop3Score],
+                             ["How much of a Summoner's overall score are his Top 3 Champions?", avgTop3ScorePerScore, wrongTop3ScorePer],
+                             ["What is the Champion that has the most levels?", championMostLevels, wrongMostLevels],
+                             ["What is the Champion that has the least levels?", championLeastLevels, wrongLeastLevels],
+                             ["What is the Champion that has the most points?", championMostPoints, wrongMostPoints],
+                             ["What is the Champion that has the least points?", championLeastPoints, wrongLeastPoints],
+                             ["What is the Percentage of Level 5 Champions?", percentLevel5, wrongPercentLevel5],
+                             ["What is the Percentage of Level 4 Champions?", percentLevel4, wrongPercentLevel4],
+                             ["What is the Percentage of Level 3 Champions?", percentLevel3, wrongPercentLevel3],
+                             ["What is the Percentage of Level 2 Champions?", percentLevel2, wrongPercentLevel2],
+                             ["What is the Percentage of Level 1 Champions?", percentLevel1, wrongPercentLevel1],
+                            ];
+            
+            // Variables for checking buttons
+            var correctButton = 1;
+            var score = 0;
+            var started = 0;
+            
+            
+            // Will check if button pressed was correct button
+            // If correct add to score and go to next
+            // If incorrect go to next
+            function checkAnswer(buttonPressed) {
+                //alert("Button " + buttonPressed + " pressed");
+                if(started==0){
+                    switch(buttonPressed) {
+                        case 1:
+                            started = 1;
+                            document.getElementById("hAnswer").innerHTML = "No";
+                            break;
+                        case 2:
+                            started = 0;
+                            document.getElementById("hQuestion").innerHTML = "Are you Ready Now?";
+                            document.getElementById("hAnswer").innerHTML = "No";
+                            break;
+                        case 3:
+                            started = 1;
+                            document.getElementById("hAnswer").innerHTML = "Absolutely!";
+                            document.getElementById("hScoreNumber").innerHTML = ++score;
+                            break;
+                        case 4:
+                            window.location="index.html";
+                            break;
+                    }
+                }
+            }
+			
+            // Functions
 			
 			// Will create random set of numbers
 			// int base  -correct answer
@@ -97,7 +171,8 @@
 				}
 				return arr;
 			}
-			
+            
+            // Function to load HTML Data
             function loadDoc() {
               var xhttp;
                 var result;
@@ -119,5 +194,12 @@
             }
         </script>
 
+        <!--
+    http://www.w3schools.com/jsref/jsref_splice.asp
+    http://stackoverflow.com/questions/4550505/getting-random-value-from-an-array
+    http://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/Bard.png
+    http://ddragon.leagueoflegends.com/tool/    
+        -->
+        
     </body>
 </html>
